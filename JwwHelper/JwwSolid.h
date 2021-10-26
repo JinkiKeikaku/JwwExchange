@@ -3,7 +3,7 @@
 #include "CDataSolid.h"
 
 namespace JwwHelper {
-    ref class JwwSolid :
+	public ref class JwwSolid :
         public JwwData
     {
 	public:

@@ -14,21 +14,32 @@ namespace TestApp {
             f.Filter = "Jww Files|*.jww|All Files|*.*";
             if (f.ShowDialog() != DialogResult.OK) return;
             OpenFile(f.FileName);
+            //ガベコレしないとunmanage側のString関係のオブジェクトでコンソールにメッセージが出るので
+            //ここでガベコレしています。メッセージは出ていても問題はないそうですが、
+            //デバッグ中のメモリリークの確認のためにここに入れました。無くても構いません。
             GC.Collect();
 
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
             SaveFile("d:\\test0.jww");
+            //ガベコレしないとunmanage側のString関係のオブジェクトでコンソールにメッセージが出るので
+            //ここでガベコレしています。メッセージは出ていても問題はないそうですが、
+            //デバッグ中のメモリリークの確認のためにここに入れました。無くても構いません。
             GC.Collect();
         }
 
         void SaveFile(string path) {
             using var a = new JwwHelper.JwwWriter();
+
             //JwwHelper.dllと同じフォルダに"template.jww"が必要です。
             //"template.jww"は適当なjwwファイルでそのファイルからjwwファイルのヘッダーをコピーします。
             //Headerをプログラムから設定してもいいのですが、項目が多いので大変です。
             a.InitHeader("template.jww");
+
+            //ヘッダーの変更は初期化後に行います。
+            a.Header.m_aStrGLayName[0] = "ABC";
+            a.Header.m_aStrGLayName[1] = "日本語";
             //図形オブジェクトを作ってAddData()で書き込む図形を追加します。
             //適当に斜めの線を追加します。
             //var s = new JwwHelper.JwwSen();
@@ -36,7 +47,7 @@ namespace TestApp {
             //s.m_start_y = 100.0;
             //s.m_end_x = -100.0;
             //s.m_end_y = -100.0;
-            for(int i = 0; i < 100; i++) {
+            for (int i = 0; i < 100; i++) {
                 var s = new JwwHelper.JwwSen();
                 s.m_start_x = 100.0 + i;
                 s.m_start_y = 100.0;
@@ -89,7 +100,8 @@ namespace TestApp {
             sb.AppendLine("Paper:" + header.m_nZumen);
             sb.AppendLine("Layers=============================================");
             for (var j = 0; j < 16; j++) {
-                sb.AppendLine("Layer group " + j + " Name:" + header.get_m_aStrGLayName(j) + " Scale:" + header.get_m_adScale(j));
+
+                sb.AppendLine("Layer group " + j + " Name:" + header.m_aStrGLayName[j] + " Scale:" + header.get_m_adScale(j));
                 for (var i = 0; i < 16; i++) {
                     if (i % 2 == 1) {
                         sb.AppendLine("  Layer " + i + " Name:" + header.get_m_aStrLayName(j * 16 + i));

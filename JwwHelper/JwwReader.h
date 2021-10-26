@@ -32,6 +32,9 @@ namespace JwwHelper {
 		property List<JwwData^>^ DataList {
 			List<JwwData^>^ get() { return mDataList; }
 		};
+		property List<JwwDataList^>^ DataListList {
+			List<JwwDataList^>^ get() { return mDataListList; }
+		};
 
 
 	public:

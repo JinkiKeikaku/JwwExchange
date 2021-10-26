@@ -4,18 +4,39 @@ using namespace System;
 namespace JwwHelper {
 	public ref class JwwHeader
 	{
+		array<String^>^ _m_aStrGLayName = gcnew array<String^>(16);
+
+		void CopyToManagedArrays() {
+			for (int i = 0; i < 16; i++) {
+				_m_aStrGLayName[i] = gcnew String(CA2W(m_pHeader->m_aStrGLayName[i]));
+			}
+		}
+		void CopyToNativeArrays() {
+			for (int i = 0; i < 16; i++) {
+				pin_ptr<const WCHAR> str = PtrToStringChars(_m_aStrGLayName[i]);
+				CW2A astr(str);
+				m_pHeader->m_aStrGLayName[i] = astr;
+			}
+		}
+
 	internal:
-		JwwHeader() { m_pHeader = new CJwwHeader(); }
-		JwwHeader(CJwwHeader* pHeader) { m_pHeader = pHeader; }
+		JwwHeader() {
+			m_pHeader = new CJwwHeader(); CopyToManagedArrays();
+			CopyToManagedArrays();
+		}
+		JwwHeader(CJwwHeader* pHeader) { 
+			m_pHeader = pHeader; 
+			CopyToManagedArrays();
+		}
 	public:
 		~JwwHeader() { this->!JwwHeader(); }
 		!JwwHeader() { delete m_pHeader; }
 
-//		CJwwHeader* CloneHeader() { return m_pHeader->Clone(); }
 	public:
 		property int m_jwwDataVersion {
 			int get() { return m_pHeader->m_jwwDataVersion; }
 		};
+
 		property String^ m_strMemo {
 			String^ get() {
 				return gcnew String(CA2W(m_pHeader->m_strMemo.GetString()));
@@ -26,26 +47,41 @@ namespace JwwHelper {
 				m_pHeader->m_strMemo = astr;
 			}
 		};
+		property int m_aStrLayName_Size {
+			int get() { return 256; }
+		}
 		property String^ m_aStrLayName[int]{
 			String ^ get(int index) {
 				return gcnew String(CA2W(m_pHeader->m_aStrLayName[index / 16][index % 16]));
 			}
 			void set(int index, String ^ value) {
-				pin_ptr<const WCHAR> str = PtrToStringChars(value);
+				pin_ptr<const WCHAR> str  = PtrToStringChars(value);
 				CW2A astr(str);
 				m_pHeader->m_aStrLayName[index / 16][index % 16] = astr;
 			}
 		};
-		property String^ m_aStrGLayName[int]{
-			String ^ get(int index) {
-				return gcnew String(CA2W(m_pHeader->m_aStrGLayName[index]));
+		property array<String^>^ m_aStrGLayName {
+			array<String^>^ get() { 
+				return _m_aStrGLayName;
 			}
-			void set(int index, String ^ value) {
-				pin_ptr<const WCHAR> str = PtrToStringChars(value);
-				CW2A astr(str);
-				m_pHeader->m_aStrGLayName[index] = astr;
-			}
-		};
+		}
+
+		//property int m_aStrGLayName_Size {
+		//	int get() { return 16; }
+		//}
+		//property String^ m_aStrGLayName[int]{
+		//	String ^ get(int index) {
+		//		return gcnew String(CA2W(m_pHeader->m_aStrGLayName[index]));
+		//	}
+		//	void set(int index, String ^ value) {
+		//		pin_ptr<const WCHAR> str = PtrToStringChars(value);
+		//		CW2A astr(str);
+		//		m_pHeader->m_aStrGLayName[index] = astr;
+		//	}
+		//};
+		property int m_astrUDColorName_SXF_Size {
+			int get() { return 257; }
+		}
 		property String^ m_astrUDColorName_SXF[int]{
 			String ^ get(int index) {
 				return gcnew String(CA2W(m_pHeader->m_astrUDColorName_SXF[index]));
@@ -57,6 +93,9 @@ namespace JwwHelper {
 			}
 		};
 
+		property int m_astrUDLTypeName_SXF_Size {
+			int get() { return 33; }
+		}
 		property String^ m_astrUDLTypeName_SXF[int]{
 			String ^ get(int index) {
 				return gcnew String(CA2W(m_pHeader->m_astrUDLTypeName_SXF[index]));
@@ -75,26 +114,47 @@ namespace JwwHelper {
 			int get() { return m_pHeader->m_nWriteGLay; }
 			void set(int value) { m_pHeader->m_nWriteGLay = value; }
 		};
+
+		property int m_anGLay_Size {
+			int get() { return 16; }
+		}
 		property int m_anGLay[int]{
 			int get(int index) { return m_pHeader->m_anGLay[index]; }
 			void set(int index, int value) { m_pHeader->m_anGLay[index] = value; }
 		};
+
+		property int m_anWriteLay_Size {
+			int get() { return 16; }
+		}
 		property int m_anWriteLay[int]{
 			int get(int index) { return m_pHeader->m_anWriteLay[index]; }
 			void set(int index, int value) { m_pHeader->m_anWriteLay[index] = value; }
 		};
+
+		property int m_adScale_Size {
+			int get() { return 16; }
+		}
 		property double m_adScale[int]{
 			double get(int index) { return m_pHeader->m_adScale[index]; }
 			void set(int index, double value) { m_pHeader->m_adScale[index] = value; }
 		};
+
+		property int m_anGLayProtect_Size {
+			int get() { return 16; }
+		}
 		property int m_anGLayProtect[int]{
 			int get(int index) { return m_pHeader->m_anGLayProtect[index]; }
 			void set(int index, int value) { m_pHeader->m_anGLayProtect[index] = value; }
 		};
+
+		property int m_aanLay_Size {
+			int get() { return 256; }
+		}
 		property int m_aanLay[int]{
 			int get(int index) { return m_pHeader->m_aanLay[index / 16][index % 16]; }
 			void set(int index, int value) { m_pHeader->m_aanLay[index / 16][index % 16] = value; }
 		};
+
 		property int m_lnSunpou1 {
 			int get() { return m_pHeader->m_lnSunpou1; }
 			void set(int value) { m_pHeader->m_lnSunpou1 = value; }
@@ -212,23 +272,38 @@ namespace JwwHelper {
 			void set(double value) { m_pHeader->m_DPHanniGenten_y = value; }
 		}
 
+		property int m_dZoomJumpBairitsu_Size {
+			int get() { return 8; }
+		}
 		property double m_dZoomJumpBairitsu[int]{
 			double get(int index) { return m_pHeader->m_dZoomJumpBairitsu[index]; }
 			void set(int index, double value) { m_pHeader->m_dZoomJumpBairitsu[index] = value; }
 		}
-			property double m_DPZoomJumpGenten_x[int]{
-				double get(int index) { return m_pHeader->m_DPZoomJumpGenten_x[index]; }
-				void set(int index, double value) { m_pHeader->m_DPZoomJumpGenten_x[index] = value; }
+
+		property int m_DPZoomJumpGenten_x_Size {
+			int get() { return 8; }
 		}
-			property double m_DPZoomJumpGenten_y[int]{
-				double get(int index) { return m_pHeader->m_DPZoomJumpGenten_y[index]; }
-				void set(int index, double value) { m_pHeader->m_DPZoomJumpGenten_y[index] = value; }
+		property double m_DPZoomJumpGenten_x[int]{
+			double get(int index) { return m_pHeader->m_DPZoomJumpGenten_x[index]; }
+			void set(int index, double value) { m_pHeader->m_DPZoomJumpGenten_x[index] = value; }
 		}
-			property int m_nZoomJumpGLay[int]{
-				int get(int index) { return m_pHeader->m_nZoomJumpGLay[index]; }
-				void set(int index, int value) { m_pHeader->m_nZoomJumpGLay[index] = value; }
+
+		property int m_DPZoomJumpGenten_y_Size {
+			int get() { return 8; }
 		}
-			property double m_dMojiBG {
+		property double m_DPZoomJumpGenten_y[int]{
+			double get(int index) { return m_pHeader->m_DPZoomJumpGenten_y[index]; }
+			void set(int index, double value) { m_pHeader->m_DPZoomJumpGenten_y[index] = value; }
+		}
+
+		property int m_nZoomJumpGLay_Size {
+			int get() { return 8; }
+		}
+		property int m_nZoomJumpGLay[int]{
+			int get(int index) { return m_pHeader->m_nZoomJumpGLay[index]; }
+			void set(int index, int value) { m_pHeader->m_nZoomJumpGLay[index] = value; }
+		}
+		property double m_dMojiBG {
 			double get() { return m_pHeader->m_dMojiBG; }
 			void set(double value) { m_pHeader->m_dMojiBG = value; }
 		}
@@ -236,88 +311,164 @@ namespace JwwHelper {
 			int get() { return m_pHeader->m_nMojiBG; }
 			void set(int value) { m_pHeader->m_nMojiBG = value; }
 		}
+
+		property int m_adFukusenSuuchi_Size {
+			int get() { return 10; }
+		}
 		property double m_adFukusenSuuchi[int]{
 			double get(int index) { return m_pHeader->m_adFukusenSuuchi[index]; }
 			void set(int index, double value) { m_pHeader->m_adFukusenSuuchi[index] = value; }
 		}
-			property double m_dRyoygawaFukusenTomeDe {
+
+		property double m_dRyoygawaFukusenTomeDe {
 			double get() { return m_pHeader->m_dRyoygawaFukusenTomeDe; }
 			void set(double value) { m_pHeader->m_dRyoygawaFukusenTomeDe = value; }
 		}
 
 
+		property int m_aPenColor_Size {
+			int get() { return 10; }
+		}
 		property int m_aPenColor[int]{
 			int get(int index) { return m_pHeader->m_aPenColor[index]; }
 			void set(int index, int value) { m_pHeader->m_aPenColor[index] = value; }
 		}
-			property int m_anPenWidth[int]{
+
+		property int m_anPenWidth_Size {
+			int get() { return 10; }
+		}
+		property int m_anPenWidth[int]{
 				int get(int index) { return m_pHeader->m_anPenWidth[index]; }
 				void set(int index, int value) { m_pHeader->m_anPenWidth[index] = value; }
 		}
-			property int m_aPrtPenColor[int]{
+
+		property int m_aPrtPenColor_Size {
+			int get() { return 10; }
+		}
+		property int m_aPrtPenColor[int]{
 				int get(int index) { return m_pHeader->m_aPrtPenColor[index]; }
 				void set(int index, int value) { m_pHeader->m_aPrtPenColor[index] = value; }
 		}
-			property int m_anPrtPenWidth[int]{
+			
+		property int m_anPrtPenWidth_Size {
+			int get() { return 10; }
+		}
+		property int m_anPrtPenWidth[int]{
 				int get(int index) { return m_pHeader->m_anPrtPenWidth[index]; }
 				void set(int index, int value) { m_pHeader->m_anPrtPenWidth[index] = value; }
 		}
-			property double m_adPrtTenHankei[int]{
+
+			
+			property int m_adPrtTenHankei_Size {
+			int get() { return 10; }
+		}
+		property double m_adPrtTenHankei[int]{
 				double get(int index) { return m_pHeader->m_adPrtTenHankei[index]; }
 				void set(int index, double value) { m_pHeader->m_adPrtTenHankei[index] = value; }
 		};
 
+		property int m_alLType_Size {
+			int get() { return 8; }
+		}
 		//◆ 線種番号2から9までのパターン、1ユニットのドット数、ピッチ、プリンタ出⼒ピッチ
 		property int m_alLType[int]{
 			int get(int index) { return m_pHeader->m_alLType[index]; }
 			void set(int index, int value) { m_pHeader->m_alLType[index] = value; }
 		};
+
+		property int m_anTokushuSenUintDot_Size {
+			int get() { return 8; }
+		}
 		property int m_anTokushuSenUintDot[int]{
 			int get(int index) { return m_pHeader->m_anTokushuSenUintDot[index]; }
 			void set(int index, int value) { m_pHeader->m_anTokushuSenUintDot[index] = value; }
 		};
+
+		property int m_anTokushuSenPich_Size {
+			int get() { return 8; }
+		}
 		property int m_anTokushuSenPich[int]{
 			int get(int index) { return m_pHeader->m_anTokushuSenPich[index]; }
 			void set(int index, int value) { m_pHeader->m_anTokushuSenPich[index] = value; }
 		};
+
+		property int m_anPrtTokushuSenPich_Size {
+			int get() { return 8; }
+		}
 		property int m_anPrtTokushuSenPich[int]{
 			int get(int index) { return m_pHeader->m_anPrtTokushuSenPich[index]; }
 			void set(int index, int value) { m_pHeader->m_anPrtTokushuSenPich[index] = value; }
 		};
+
+		property int m_alLType_Rnd_Size {
+			int get() { return 5; }
+		}
 		//◆ ランダム線1から5までのパターン、画⾯表⽰振幅・ピッチ、プリンタ出⼒振幅・ピッチ
 		property int m_alLType_Rnd[int]{
 			int get(int index) { return m_pHeader->m_alLType_Rnd[index]; }
 			void set(int index, int value) { m_pHeader->m_alLType_Rnd[index] = value; }
 		};
+
+		property int m_anRandSenWide_Rnd_Size {
+			int get() { return 5; }
+		}
 		property int m_anRandSenWide_Rnd[int]{
 			int get(int index) { return m_pHeader->m_anRandSenWide_Rnd[index]; }
 			void set(int index, int value) { m_pHeader->m_anRandSenWide_Rnd[index] = value; }
 		};
+
+		property int m_anTokushuSenPich_Rnd_Size {
+			int get() { return 5; }
+		}
 		property int m_anTokushuSenPich_Rnd[int]{
 			int get(int index) { return m_pHeader->m_anTokushuSenPich_Rnd[index]; }
 			void set(int index, int value) { m_pHeader->m_anTokushuSenPich_Rnd[index] = value; }
 		};
+
+		property int m_anPrtRandSenWide_Rnd_Size {
+			int get() { return 5; }
+		}
 		property int m_anPrtRandSenWide_Rnd[int]{
 			int get(int index) { return m_pHeader->m_anPrtRandSenWide_Rnd[index]; }
 			void set(int index, int value) { m_pHeader->m_anPrtRandSenWide_Rnd[index] = value; }
 		};
+
+		property int m_anPrtTokushuSenPich_Rnd_Size {
+			int get() { return 5; }
+		}
 		property int m_anPrtTokushuSenPich_Rnd[int]{
 			int get(int index) { return m_pHeader->m_anPrtTokushuSenPich_Rnd[index]; }
 			void set(int index, int value) { m_pHeader->m_anPrtTokushuSenPich_Rnd[index] = value; }
 		};
+
+		property int m_alLType_Double_Size {
+			int get() { return 4; }
+		}
 		//◆ 倍⻑線種番号6から9までのパターン、1ユニットのドット数、ピッチ、プリンタ出⼒ピッチ
 		property int m_alLType_Double[int]{
 			int get(int index) { return m_pHeader->m_alLType_Double[index]; }
 			void set(int index, int value) { m_pHeader->m_alLType_Double[index] = value; }
 		};
+
+		property int m_anTokushuSenUintDot_Double_Size {
+			int get() { return 4; }
+		}
 		property int m_anTokushuSenUintDot_Double[int]{
 			int get(int index) { return m_pHeader->m_anTokushuSenUintDot_Double[index]; }
 			void set(int index, int value) { m_pHeader->m_anTokushuSenUintDot_Double[index] = value; }
 		};
+
+		property int m_anTokushuSenPich_Double_Size {
+			int get() { return 4; }
+		}
 		property int m_anTokushuSenPich_Double[int]{
 			int get(int index) { return m_pHeader->m_anTokushuSenPich_Double[index]; }
 			void set(int index, int value) { m_pHeader->m_anTokushuSenPich_Double[index] = value; }
 		};
+
+		property int m_anPrtTokushuSenPich_Double_Size {
+			int get() { return 4; }
+		}
 		property int m_anPrtTokushuSenPich_Double[int]{
 			int get(int index) { return m_pHeader->m_anPrtTokushuSenPich_Double[index]; }
 			void set(int index, int value) { m_pHeader->m_anPrtTokushuSenPich_Double[index] = value; }
@@ -465,22 +616,41 @@ namespace JwwHelper {
 			//● プリンタ出⼒⾊
 			//● プリンタ出⼒線幅
 			//● 点半径
+		property int m_aPenColor_SXF_Size {
+			int get() { return 257; }
+		}
 		property int m_aPenColor_SXF[int]{
 			int get(int index) { return m_pHeader->m_aPenColor_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_aPenColor_SXF[index] = value; }
 		};
+
+		property int m_anPenWidth_SXF_Size {
+			int get() { return 257; }
+		}
 		property int m_anPenWidth_SXF[int]{
 			int get(int index) { return m_pHeader->m_anPenWidth_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_anPenWidth_SXF[index] = value; }
 		};
+
+		property int m_aPrtPenColor_SXF_Size {
+			int get() { return 257; }
+		}
 		property int m_aPrtPenColor_SXF[int]{
 			int get(int index) { return m_pHeader->m_aPrtPenColor_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_aPrtPenColor_SXF[index] = value; }
 		};
+
+		property int m_anPrtPenWidth_SXF_Size {
+			int get() { return 257; }
+		}
 		property int m_anPrtPenWidth_SXF[int]{
 			int get(int index) { return m_pHeader->m_anPrtPenWidth_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_anPrtPenWidth_SXF[index] = value; }
 		};
+
+		property int m_adPrtTenHankei_SXF_Size {
+			int get() { return 257; }
+		}
 		property double m_adPrtTenHankei_SXF[int]{
 			double get(int index) { return m_pHeader->m_adPrtTenHankei_SXF[index]; }
 			void set(int index, double value) { m_pHeader->m_adPrtTenHankei_SXF[index] = value; }
@@ -494,44 +664,82 @@ namespace JwwHelper {
 		//● 線種名
 		//● セグメント数
 		//● ピッチ線分の⻑さ、空⽩⻑さの繰り返し
+		property int m_alLType_SXF_Size {
+			int get() { return 33; }
+		}
 		property int m_alLType_SXF[int]{
 			int get(int index) { return m_pHeader->m_alLType_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_alLType_SXF[index] = value; }
 		};
+
+		property int m_anTokushuSenUintDot_SXF_Size {
+			int get() { return 33; }
+		}
 		property int m_anTokushuSenUintDot_SXF[int]{
 			int get(int index) { return m_pHeader->m_anTokushuSenUintDot_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_anTokushuSenUintDot_SXF[index] = value; }
 		};
+
+		property int m_anTokushuSenPich_SXF_Size {
+			int get() { return 33; }
+		}
 		property int m_anTokushuSenPich_SXF[int]{
 			int get(int index) { return m_pHeader->m_anTokushuSenPich_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_anTokushuSenPich_SXF[index] = value; }
 		};
+
+		property int m_anPrtTokushuSenPich_SXF_Size {
+			int get() { return 33; }
+		}
 		property int m_anPrtTokushuSenPich_SXF[int]{
 			int get(int index) { return m_pHeader->m_anPrtTokushuSenPich_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_anPrtTokushuSenPich_SXF[index] = value; }
 		};
+
+		property int m_anUDLTypeSegment_SXF_Size {
+			int get() { return 33; }
+		}
 		property int m_anUDLTypeSegment_SXF[int]{
 			int get(int index) { return m_pHeader->m_anUDLTypeSegment_SXF[index]; }
 			void set(int index, int value) { m_pHeader->m_anUDLTypeSegment_SXF[index] = value; }
 		};
+
+		property int m_aadUDLTypePitch_SXF_Size {
+			int get() { return 330; }
+		}
 		property double m_aadUDLTypePitch_SXF[int]{
 			double get(int index) { return m_pHeader->m_aadUDLTypePitch_SXF[index / 10][index % 10]; }
 			void set(int index, double value) { m_pHeader->m_aadUDLTypePitch_SXF[index / 10][index % 10] = value; }
 		};
 
 		//◆ ⽂字種1から10までの⽂字幅、⾼さ、間隔、⾊番号
+		property int m_adMojiX_Size {
+			int get() { return 10; }
+		}
 		property double m_adMojiX[int]{
 			double get(int index) { return m_pHeader->m_adMojiX[index]; }
 			void set(int index, double value) { m_pHeader->m_adMojiX[index] = value; }
 		};
+
+		property int m_adMojiY_Size {
+			int get() { return 10; }
+		}
 		property double m_adMojiY[int]{
 			double get(int index) { return m_pHeader->m_adMojiY[index]; }
 			void set(int index, double value) { m_pHeader->m_adMojiY[index] = value; }
 		};
+
+		property int m_adMojiD_Size {
+			int get() { return 10; }
+		}
 		property double m_adMojiD[int]{
 			double get(int index) { return m_pHeader->m_adMojiD[index]; }
 			void set(int index, double value) { m_pHeader->m_adMojiD[index] = value; }
 		};
+
+		property int m_anMojiCol_Size {
+			int get() { return 10; }
+		}
 		property int m_anMojiCol[int]{
 			int get(int index) { return m_pHeader->m_anMojiCol[index]; }
 			void set(int index, int value) { m_pHeader->m_anMojiCol[index] = value; }
@@ -572,18 +780,31 @@ namespace JwwHelper {
 			int get() { return m_pHeader->m_nMojiKijunZureOn; }
 			void set(int value) { m_pHeader->m_nMojiKijunZureOn = value; }
 		};
+
 		//◆ ⽂字基準点の横⽅向のずれ位置左、中、右
+		property int m_adMojiKijunZureX_Size {
+			int get() { return 3; }
+		}
 		property double m_adMojiKijunZureX[int]{
 			double get(int index) { return m_pHeader->m_adMojiKijunZureX[index]; }
 			void set(int index, double value) { m_pHeader->m_adMojiKijunZureX[index] = value; }
 		};
+
 		//◆ ⽂字基準点の縦⽅向のずれ位置下、中、上
+		property int m_adMojiKijunZureY_Size {
+			int get() { return 3; }
+		}
 		property double m_adMojiKijunZureY[int]{
 			double get(int index) { return m_pHeader->m_adMojiKijunZureY[index]; }
 			void set(int index, double value) { m_pHeader->m_adMojiKijunZureY[index] = value; }
 		};
 
-	internal:
+		CJwwHeader* GetNativeHeader() {
+			CopyToNativeArrays();
+			return m_pHeader;
+		}
+
+	private:
 		CJwwHeader* m_pHeader;
 	};
 

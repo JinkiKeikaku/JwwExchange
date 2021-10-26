@@ -36,7 +36,7 @@ namespace JwwHelper {
 		pin_ptr<const WCHAR> str = PtrToStringChars(path);
 		CW2A astr(str);
 		//C#‘¤ƒwƒbƒ_[‚ÅC++‘¤‚ð‰Šú‰»
-		m_pWriter->InitHeader(_Header->m_pHeader);
+		m_pWriter->InitHeader(_Header->GetNativeHeader());
 		m_pWriter->Write(astr);
 	}
 
