@@ -77,14 +77,13 @@ namespace TestApp {
                 if (Path.GetExtension(path) == ".jww") {
                     //JwwReaderが読み込み用のクラス。Completedは読み込み完了時に実行される関数。
                     //"d:\\ccc\\"はファイルに同梱画像があった時に画像が保存されるフォルダ。
-                    using var reader = new JwwHelper.JwwReader(Completed, "d:\\ccc\\");
+                    using var reader = new JwwHelper.JwwReader(Completed);
                     reader.Read(path);
                     var a = reader.Header.m_jwwDataVersion;
-                    var b = reader.Header.get_m_aStrLayName(0);
 
                 } else if (Path.GetExtension(path) == ".jws") {
                     //jwsも読めますが、このプロジェクトでは確認用のコード上がりません。
-                    using var a = new JwwHelper.JwsReader(Completed2, "d:\\ccc\\");
+                    using var a = new JwwHelper.JwsReader(Completed2);
                     a.Read(path);
                 }
             } catch (Exception exception) {
@@ -101,12 +100,12 @@ namespace TestApp {
             sb.AppendLine("Layers=============================================");
             for (var j = 0; j < 16; j++) {
 
-                sb.AppendLine("Layer group " + j + " Name:" + header.m_aStrGLayName[j] + " Scale:" + header.get_m_adScale(j));
+                sb.AppendLine("Layer group " + j + " Name:" + header.m_aStrGLayName[j] + " Scale:" + header.m_adScale[j]);
                 for (var i = 0; i < 16; i++) {
                     if (i % 2 == 1) {
-                        sb.AppendLine("  Layer " + i + " Name:" + header.get_m_aStrLayName(j * 16 + i));
+                        sb.AppendLine("  Layer " + i + " Name:" + header.m_aStrLayName[j][i]);
                     } else {
-                        sb.Append("  Layer " + i + " Name:" + header.get_m_aStrLayName(j * 16 + i));
+                        sb.Append("  Layer " + i + " Name:" + header.m_aStrLayName[j][i]);
                     }
                 }
             }
@@ -122,7 +121,14 @@ namespace TestApp {
                 sb.Append(s.GetType().Name);
                 sb.AppendLine(s.ToString());
             }
+            sb.AppendLine("Imagess=============================================");
+            var images = reader.Images;
+            foreach (var s in images) {
+                sb.Append(s.ImageName + "  ");
+                sb.AppendLine(s.Size + "bytes");
+            }
             textBox1.Text = sb.ToString();
+
 
         }
         //dllでjwsファイル読み込み完了後に呼ばれます。確認用のコードは未実装。

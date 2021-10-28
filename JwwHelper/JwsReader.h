@@ -12,16 +12,9 @@ namespace JwwHelper {
 	public:
 		delegate void CompletedCallback(JwsReader^);
 	public:
-		JwsReader(CompletedCallback^ completed, String^ imageFolder) {
+		JwsReader(CompletedCallback^ completed) {
 			m_Completed = completed;
-			if (imageFolder != nullptr) {
-				pin_ptr<const WCHAR> str = PtrToStringChars(imageFolder);
-				CW2A astr(str);
-				m_pReader = new CJwsReader(astr);
-			}
-			else {
-				m_pReader = new CJwsReader();
-			}
+			m_pReader = new CJwsReader();
 		}
 		~JwsReader() { this->!JwsReader(); }
 		!JwsReader() { delete m_pReader; }

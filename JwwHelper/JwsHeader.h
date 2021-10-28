@@ -1,13 +1,28 @@
 #pragma once
 using namespace System;
 #include "CJwsHeader.h"
+#include "JwwUtility.h"
+#include "WrapArray.h"
 
 namespace JwwHelper {
     public ref class JwsHeader
     {
+    private:
+        CJwsHeader* m_pHeader;
+        WrapArray<double>^ _m_Scales;
+        void initArrays() {
+            _m_Scales = gcnew WrapArray<double>(m_pHeader->m_Scales, 16);
+        }
+    internal:
+        JwsHeader(CJwsHeader* pHeader) {
+            m_pHeader = pHeader;
+            initArrays();
+        }
+        JwsHeader() {
+            m_pHeader = new CJwsHeader();
+            initArrays();
+        }
     public:
-        JwsHeader() { m_pHeader = new CJwsHeader(); }
-        JwsHeader(CJwsHeader* pHeader) { m_pHeader = pHeader; }
         ~JwsHeader() { this->!JwsHeader(); }
         !JwsHeader() { delete m_pHeader; }
     public:
@@ -19,10 +34,13 @@ namespace JwwHelper {
             double get() { return m_pHeader->m_Origin_y; }
             void set(double value) { m_pHeader->m_Origin_y = value; }
         };
-        property double m_Scales[int]{
-            double get(int index) { return m_pHeader->m_Scales[index]; }
-            void set(int index, double value) { m_pHeader->m_Scales[index] = value; }
-        };
+
+        property WrapArray<double>^ m_Scales {
+            WrapArray<double>^ get() {
+                return _m_Scales;
+            }
+        }
+
         property double m_Bounds_Left {
             double get() { return m_pHeader->m_Bounds_Left; }
             void set(double value) { m_pHeader->m_Bounds_Left = value; }
@@ -39,8 +57,6 @@ namespace JwwHelper {
             double get() { return m_pHeader->m_Bounds_Top; }
             void set(double value) { m_pHeader->m_Bounds_Top = value; }
         };
-    internal:
-        CJwsHeader* m_pHeader;
     };
 }
 

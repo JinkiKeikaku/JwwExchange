@@ -4,6 +4,7 @@ using namespace System::Collections::Generic;
 #include "JwwHeader.h"
 #include "JwwData.h"
 #include "JwwDataList.h"
+#include "JwwImage.h"
 #include "CJwwReader.h"
 
 namespace JwwHelper {
@@ -12,16 +13,9 @@ namespace JwwHelper {
 	public:
 		delegate void CompletedCallback(JwwReader^);
 	public:
-		JwwReader(CompletedCallback^ completed, String^ imageFolder) {
+		JwwReader(CompletedCallback^ completed) {
 			m_Completed = completed;
-			if (imageFolder != nullptr) {
-				pin_ptr<const WCHAR> str = PtrToStringChars(imageFolder);
-				CW2A astr(str);
-				m_pReader = new CJwwReader(astr);
-			}
-			else {
-				m_pReader = new CJwwReader();
-			}
+			m_pReader = new CJwwReader();
 		}
 		~JwwReader() { this->!JwwReader(); }
 		!JwwReader() { delete m_pReader; }
@@ -36,6 +30,15 @@ namespace JwwHelper {
 			List<JwwDataList^>^ get() { return mDataListList; }
 		};
 
+		/// <summary>
+		/// 画像同梱のデータ配列。画像は圧縮されている。詳細は本家の説明書を見てください。
+		/// </summary>
+		property array<JwwImage^>^ Images {
+			array<JwwImage^>^ get() {
+				return mImages;
+			}
+		}
+
 
 	public:
 		void Read(String^ path);
@@ -47,11 +50,12 @@ namespace JwwHelper {
 		JwwHeader^ mHeader = gcnew JwwHeader();
 		List<JwwData^>^ mDataList = gcnew List<JwwData^>();
 		List<JwwDataList^>^ mDataListList = gcnew List<JwwDataList^>();
-
-	protected:
+		array<JwwImage^>^ mImages = gcnew array<JwwImage^>(0);
 		CJwwReader* m_pReader;
 		CompletedCallback^ m_Completed;
+
 		void ConvertToManaged();
 	};
+
 }
 

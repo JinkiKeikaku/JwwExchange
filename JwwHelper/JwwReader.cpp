@@ -9,6 +9,7 @@
 #include "JwwSunpou.h"
 #include "JwwBlock.h"
 #include "JwwUtility.h"
+#include "JwwImage.h"
 
 namespace JwwHelper {
 	void JwwReader::Read(String^ path) {
@@ -36,5 +37,13 @@ namespace JwwHelper {
 			CDataList* data = m_pReader->m_DataListList.GetNext(pos);
 			mDataListList->Add(gcnew JwwDataList((CDataList*)data->Clone()));
 		}
+
+		mImages = gcnew array<JwwImage^>(m_pReader->m_Images.size());
+		for (int i = 0; i < m_pReader->m_Images.size(); i++) {
+			mImages[i] = gcnew JwwImage(m_pReader->m_Images[i]);
+		}
+		//画像データは大きいのでクローンは作らない。おおもとのデータをManagedで管理する。
+		//そのためここでクリア。
+		m_pReader->m_Images.clear();
 	}
 }

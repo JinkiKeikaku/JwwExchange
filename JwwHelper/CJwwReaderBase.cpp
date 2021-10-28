@@ -2,11 +2,11 @@
 #include "CJwwReaderBase.h"
 #include "CDataList.h"
 
-CJwwReaderBase::CJwwReaderBase(LPCTSTR temporaryFolder) {
-	if (temporaryFolder != NULL) m_TmpFolder = temporaryFolder;
+CJwwReaderBase::CJwwReaderBase() {
 }
 
 CJwwReaderBase::~CJwwReaderBase() {
+
 	{
 		POSITION pos = m_DataList.GetHeadPosition();
 		while (pos != NULL) {
@@ -34,7 +34,7 @@ void CJwwReaderBase::Read(LPCTSTR path) {
 		ReadHeader(ar);
 		ReadData(ar);
 		ReadDataList(ar);
-		//ReadImage(ar);
+		ReadImages(ar);
 		ar.Close();
 	}
 	catch (...) {
@@ -49,3 +49,4 @@ void CJwwReaderBase::ReadData(CArchive& ar) {
 void CJwwReaderBase::ReadDataList(CArchive& ar) {
 	m_DataListList.Serialize(ar);
 }
+

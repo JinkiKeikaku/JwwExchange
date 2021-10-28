@@ -2,7 +2,7 @@
 #include "CJwsReader.h"
 
 
-CJwsReader::CJwsReader(LPCTSTR temporaryFolder) : CJwwReaderBase(temporaryFolder) {
+CJwsReader::CJwsReader() : CJwwReaderBase() {
 	m_pHeader = new CJwsHeader();
 }
 CJwsReader::~CJwsReader() {

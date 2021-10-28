@@ -9,35 +9,161 @@ public:
 	CJwwHeader* Clone();
 public:
 	//	static int s_jwwDataVersion;
+	
+	/// <summary>
+	/// ファイルメモ
+	/// </summary>
 	CString m_strMemo;
+
 	CString m_aStrLayName[16][16];
 	CString m_aStrGLayName[16];
 	CString m_astrUDColorName_SXF[257];
 	CString m_astrUDLTypeName_SXF[33];
 
-
+	/// <summary>
+	/// バージョンNo 7.02の内部データ値は700
+	/// </summary>
 	DWORD m_jwwDataVersion = JWW_VERSION;
 
+	/// <summary>
+	/// 図⾯サイズ
+	/// ● 0〜4 ︓A0〜A4
+	/// ● 8 ︓2 A
+	/// ● 9 ︓3 A
+	/// ● 10 ︓4 A
+	/// ● 11 ︓5 A
+	/// ● 12 ︓10m
+	/// ● 13 ︓50m
+	/// ● 14 ︓100m
+	/// </summary>
 	DWORD m_nZumen;
 
+	/// <summary>
+	/// レイヤグループ・レイヤ状態 
+	/// 書込レイヤグループ
+	/// </summary>
 	DWORD m_nWriteGLay;
+
+	/// <summary>
+	/// レイヤグループ・レイヤ状態 
+	/// レイヤグループ状態(0︓非表⽰、1︓表⽰のみ、2︓編集可能、3︓書込)
+	/// </summary>
 	DWORD m_anGLay[16];
+
+	/// <summary>
+	/// レイヤグループ・レイヤ状態 
+	/// レイヤグループの書込レイヤ
+	/// </summary>
 	DWORD m_anWriteLay[16];
+
+	/// <summary>
+	/// レイヤグループ・レイヤ状態 
+	/// レイヤグループの縮尺(の分⺟)
+	/// </summary>
 	double m_adScale[16];
+
+	/// <summary>
+	/// レイヤグループ・レイヤ状態 
+	/// レイヤグループのプロテクト指定
+	/// (0︓無指定、1︓表⽰状態変更可能プロテクト指定、2︓表⽰状態固定プロテクト指定)
+	/// </summary>
 	DWORD m_anGLayProtect[16];
+
+	/// <summary>
+	/// レイヤグループ・レイヤ状態 
+	/// レイヤ状態(0︓非表⽰、1︓表⽰のみ、2︓編集可能、3︓書込)
+	/// </summary>
 	DWORD m_aanLay[16][16];
+
+	/// <summary>
+	/// レイヤグループ・レイヤ状態 
+	/// レイヤのプロテクト指定
+	/// (0︓無指定、1︓表⽰状態変更可能プロテクト指定、2︓表⽰状態固定プロテクト指定)
+	/// </summary>
 	DWORD m_aanLayProtect[16][16];
 
+
+	/// <summary>
+	/// 寸法関係の設定
+	/// 環境設定ファイルの「S_COMM_8」の③寸法設定が「10」または「11」になっていて、 
+	/// ファイルへの保存ができる場合に有効になり、
+	/// それ以外は「m_lnSunpou1」〜「m_lnSunpou5」は「0」になる。
+	/// ⼀位︓寸法線⾊（1〜9）
+	/// ⼗位︓引出線⾊（1〜9）
+	/// 百位︓寸法点⾊（1〜9）
+	/// 千位︓寸法値の少数点以下の桁数（0〜3）
+	/// 万位︓寸法単位（0 : mm 、1 : ｍ）
+	/// ⼗万位︓寸法線端部（0 : 点 、1 : ⽮印 、2 : 逆⽮印）
+	/// 百万位︓寸法⽂字種（1〜10）
+	/// </summary>
 	DWORD m_lnSunpou1;
+
+	/// <summary>
+	/// 寸法関係の設定
+	/// 環境設定ファイルの「S_COMM_8」の③寸法設定が「10」または「11」になっていて、 
+	/// ファイルへの保存ができる場合に有効になり、
+	/// それ以外は「m_lnSunpou1」〜「m_lnSunpou5」は「0」になる。
+	/// ⼀位〜千位︓寸法値の寸法線との離れ
+	/// 離れ（0〜99.9）×１０、マイナスの場合は1000をプラスして整数化する
+	/// 万位〜千万位︓寸法線の突出⻑さ
+	/// ⻑さ（0〜99.9）×１０、マイナスの場合は1000をプラスして整数化し、更に10000倍する。
+	/// </summary>
 	DWORD m_lnSunpou2;
+
+	/// <summary>
+	/// 寸法関係の設定
+	/// 環境設定ファイルの「S_COMM_8」の③寸法設定が「10」または「11」になっていて、 
+	/// ファイルへの保存ができる場合に有効になり、
+	/// それ以外は「m_lnSunpou1」〜「m_lnSunpou5」は「0」になる。
+	/// </summary>
 	DWORD m_lnSunpou3;
+	/// <summary>
+	/// 寸法関係の設定
+	/// 環境設定ファイルの「S_COMM_8」の③寸法設定が「10」または「11」になっていて、 
+	/// ファイルへの保存ができる場合に有効になり、
+	/// それ以外は「m_lnSunpou1」〜「m_lnSunpou5」は「0」になる。
+	/// </summary>
 	DWORD m_lnSunpou4;
+	/// <summary>
+	/// 寸法関係の設定
+	/// 環境設定ファイルの「S_COMM_8」の③寸法設定が「10」または「11」になっていて、 
+	/// ファイルへの保存ができる場合に有効になり、
+	/// それ以外は「m_lnSunpou1」〜「m_lnSunpou5」は「0」になる。
+	/// </summary>
 	DWORD m_lnSunpou5;
+
+	/// <summary>
+	/// 線描画の最⼤幅
+	/// ｢線幅を1 / 100mm単位とする｣が設定されている時は｢－101｣、Ver.6.00以降は線幅を1 / 100mm単位にする前の線描画の
+	/// 最⼤幅を含め｢ - 201｣〜｢ - 300｣、｢ - 401｣〜｢ - 500｣。
+	/// </summary>
 	DWORD nWid;
+
+	/// <summary>
+	/// プリンタ出⼒範囲の原点 X
+	/// </summary>
 	double m_DPPrtGenten_x;
+
+	/// <summary>
+	/// プリンタ出⼒範囲の原点 Y
+	/// </summary>
 	double m_DPPrtGenten_y;
+
+	/// <summary>
+	/// プリンタ出⼒倍率
+	/// </summary>
 	double m_dPrtBairitsu;
+
+	/// <summary>
+	/// プリンタ90°回転出⼒、プリンタ出⼒基準点位置
+	/// ●⼀位︓プリンタ90°回転出⼒
+	/// ●⼗位︓プリンタ出⼒基準点位置の指定（0 : 無指定）（Ver.3.00以降）
+	/// 7 : 左上 8 : 中上 9 : 右上
+	/// 4 : 左中 5 : 中中 6 : 右中
+	/// 1 : 左下 2 : 中下 3 : 右下
+	/// </summary>
 	DWORD m_nPrtSet;
+
 	DWORD m_nMemoriMode;
 	double m_dMemoriHyoujiMin;
 
@@ -57,48 +183,117 @@ public:
 
 	DWORD m_nMMTani3D;
 
-	//◆ 保存時の画⾯倍率(読込むと前画⾯倍率になる)
+	/// <summary>
+	/// 保存時の画⾯倍率(読込むと前画⾯倍率になる)
+	/// </summary>
 	double m_dBairitsu;
 	double m_DPGenten_x;
 	double m_DPGenten_y;
-	//◆ 範囲記憶倍率と基準点(X, Y)
+
+	/// <summary>
+	/// 範囲記憶倍率
+	/// </summary>
 	double m_dHanniBairitsu;
+
+	/// <summary>
+	/// 範囲記憶基準点(X)
+	/// </summary>
 	double m_DPHanniGenten_x;
+
+	/// <summary>
+	/// 範囲記憶基準点(Y)
+	/// </summary>
 	double m_DPHanniGenten_y;
 
-	//◆ マークジャンプ倍率、基準点(X, Y)およびレイヤグループ
+	/// <summary>
+	/// マークジャンプ倍率
+	/// </summary>
 	double m_dZoomJumpBairitsu[8];
+	/// <summary>
+	/// マークジャンプ基準点(X)
+	/// </summary>
 	double m_DPZoomJumpGenten_x[8];
+	/// <summary>
+	/// マークジャンプ基準点(Y)
+	/// </summary>
 	double m_DPZoomJumpGenten_y[8];
+	/// <summary>
+	/// マークジャンプレイヤグループ
+	/// </summary>
 	DWORD m_nZoomJumpGLay[8];
 
-	double m_dMojiBG;//(Ver.4.04以前はダミー）//⽂字列範囲を背景⾊で描画するときの範囲増寸法
+	/// <summary>
+	/// (Ver.4.04以前はダミー）//⽂字列範囲を背景⾊で描画するときの範囲増寸法
+	/// </summary>
+	double m_dMojiBG;
+
+	/// <summary>
+	/// (Ver.4.04以前はダミー）
+	/// ⼗位:⽂字（寸法図形､ブロック図形）を最後に描画
+	/// ⼀位:1 : 輪郭・範囲を背景⾊で描画しない
+	/// 2 : ⽂字の輪郭を背景⾊で描画する
+	/// 3 : ⽂字列範囲を背景⾊で描画する
+	/// </summary>
 	DWORD m_nMojiBG;
 
-	//複線間隔
+	/// <summary>
+	/// 複線間隔
+	/// </summary>
 	double m_adFukusenSuuchi[10];
-	//◆ 両側複線の留線出の寸法
+
+	/// <summary>
+	/// 両側複線の留線出の寸法
+	/// </summary>
 	double m_dRyoygawaFukusenTomeDe;
 
-
-	//◆ ⾊番号ごとの画⾯表⽰⾊、線幅
-	//● 画⾯表⽰⾊(0︓背景⾊、1〜8︓線⾊、9︓グレー⾊)
-	//● 線幅(1〜16)
+	/// <summary>
+	/// ⾊番号ごとの画⾯表⽰⾊
+	/// 画⾯表⽰⾊(0︓背景⾊、1〜8︓線⾊、9︓グレー⾊)
+	/// </summary>
 	DWORD m_aPenColor[10];
+
+	/// <summary>
+	/// ⾊番号ごとの画⾯表⽰線幅
+	/// 線幅(1〜16)
+	/// </summary>
 	DWORD m_anPenWidth[10];
-	//◆ ⾊番号ごとのプリンタ出⼒⾊、線幅、実点半径
-	//● プリンタ出⼒⾊(0︓背景⾊、1〜8︓線⾊、9︓グレー⾊)
-	//● 線幅(1〜500)
-	//● 実点半径(0.1〜10)
+
+	/// <summary>
+	/// ⾊番号ごとのプリンタ出⼒⾊
+	/// プリンタ出⼒⾊(0︓背景⾊、1〜8︓線⾊、9︓グレー⾊)
+	/// </summary>
 	DWORD m_aPrtPenColor[10];
+
+	/// <summary>
+	/// ⾊番号ごとのプリンタ線幅
+	/// 線幅(1〜500)
+	/// </summary>
 	DWORD m_anPrtPenWidth[10];
+
+	/// <summary>
+	/// ⾊番号ごとのプリンタ実点半径
+	/// 実点半径(0.1〜10)
+	/// </summary>
 	double m_adPrtTenHankei[10];
 
-	//◆ 線種番号2から9までのパターン、1ユニットのドット数、ピッチ、プリンタ出⼒ピッチ
+
+	/// <summary>
+	/// 線種番号2から9までのパターン
+	/// </summary>
 	DWORD m_alLType[8];
+	/// <summary>
+	/// 線種番号2から9までの1ユニットのドット数
+	/// </summary>
 	DWORD m_anTokushuSenUintDot[8];
+	/// <summary>
+	/// 線種番号2から9までのピッチ
+	/// </summary>
 	DWORD m_anTokushuSenPich[8];
+	/// <summary>
+	/// 線種番号2から9までのプリンタ出⼒ピッチ
+	/// </summary>
 	DWORD m_anPrtTokushuSenPich[8];
+
 	//◆ ランダム線1から5までのパターン、画⾯表⽰振幅・ピッチ、プリンタ出⼒振幅・ピッチ
 	DWORD m_alLType_Rnd[5];
 	DWORD m_anRandSenWide_Rnd[5];
@@ -118,38 +313,83 @@ public:
 	//◆ BitMap・ソリッドを最初に描画する
 	DWORD m_nBitMapFirstDraw; //⼗位︓ソリッド描画順
 
-
-	//◆ 逆描画
+	/// <summary>
+	/// 逆描画
+	/// </summary>
 	DWORD m_nGyakuDraw;
-	//◆ 逆サーチ
+
+	/// <summary>
+	/// 逆サーチ
+	/// </summary>
 	DWORD m_nGyakuSearch;
-	//◆ カラー印刷
+
+	/// <summary>
+	/// カラー印刷
+	/// </summary>
 	DWORD m_nColorPrint;
-	//◆ レイヤ順の印刷
+
+	/// <summary>
+	/// レイヤ順の印刷
+	/// </summary>
 	DWORD m_nLayJunPrint;
-	//◆ ⾊番号順の印刷
+
+	/// <summary>
+	/// ⾊番号順の印刷
+	/// </summary>
 	DWORD m_nColJunPrint;
-	//◆ レイヤグループまたはレイヤごとのプリンタ連続出⼒指定
+
+	/// <summary>
+	/// レイヤグループまたはレイヤごとのプリンタ連続出⼒指定
+	/// </summary>
 	DWORD m_nPrtRenzoku;
-	//◆ プリンタ共通レイヤ(表⽰のみレイヤ)のグレー出⼒指定
+
+	/// <summary>
+	/// プリンタ共通レイヤ(表⽰のみレイヤ)のグレー出⼒指定
+	/// </summary>
 	DWORD m_nPrtKyoutsuuGray;
-	//◆ プリンタ出⼒時に表⽰のみレイヤは出⼒しない
-	//	Ver.6.00以降は印刷時における既定線⾊の線幅の基準値の「dpi」。
+
+	/// <summary>
+	/// プリンタ出⼒時に表⽰のみレイヤは出⼒しない
+	/// Ver.6.00以降は印刷時における既定線⾊の線幅の基準値の「dpi」。
+	/// </summary>
 	DWORD m_nPrtDispOnlyNonDraw;
-	//◆ 作図時間（Ver.2.23以降）
+
+	/// <summary>
+	/// 作図時間（Ver.2.23以降）
+	/// </summary>
 	DWORD m_lnDrawTime;
-	//◆ 2.5Dの始点位置が設定されている時のフラグ（Ver.2.23以降）
-		//● ⼀位︓透視図の視点位置設定済みフラグ
-		//● ⼗位︓⿃瞰図の視点位置設定済みフラグ
-		//● 百位︓アイソメ図の視点位置設定済みフラグ
+
+	/// <summary>
+	/// 2.5Dの始点位置が設定されている時のフラグ（Ver.2.23以降）
+	/// ⼀位︓透視図の視点位置設定済みフラグ
+	/// ⼗位︓⿃瞰図の視点位置設定済みフラグ
+	/// 百位︓アイソメ図の視点位置設定済みフラグ
+	/// </summary>
 	DWORD nEyeInit;
-	//◆ 2.5Dの透視図・⿃瞰図・アイソメ図の視点⽔平角（Ver.2.23以降）
+
+	/// <summary>
+	/// 2.5Dの透視図の視点⽔平角（Ver.2.23以降）
+	/// </summary>
 	DWORD m_dEye_H_Ichi_1;
+	/// <summary>
+	/// 2.5Dの⿃瞰図の視点⽔平角（Ver.2.23以降）
+	/// </summary>
 	DWORD m_dEye_H_Ichi_2;
+	/// <summary>
+	/// 2.5Dのアイソメ図の視点⽔平角（Ver.2.23以降）
+	/// </summary>
 	DWORD m_dEye_H_Ichi_3;
-	//◆ 2.5Dの透視図の視点⾼さ・視点離れ（Ver.2.23以降）
+
+	/// <summary>
+	/// 2.5Dの透視図の視点⾼さ（Ver.2.23以降）
+	/// </summary>
 	double m_dEye_Z_Ichi_1;
+
+	/// <summary>
+	/// 2.5Dの透視図の視点離れ（Ver.2.23以降）
+	/// </summary>
 	double m_dEye_Y_Ichi_1;
+
 	//◆ 2.5Dの⿃瞰図の視点⾼さ・視点離れ（Ver.2.23以降）
 	double m_dEye_Z_Ichi_2;
 	double m_dEye_Y_Ichi_2;
@@ -172,10 +412,31 @@ public:
 		//● プリンタ出⼒⾊
 		//● プリンタ出⼒線幅
 		//● 点半径
+
+	/// <summary>
+	/// SXF対応拡張線⾊定義（Ver.4.20以降）
+	/// 画⾯表⽰⾊
+	/// </summary>
 	DWORD m_aPenColor_SXF[257];
+	/// <summary>
+	/// SXF対応拡張線⾊定義（Ver.4.20以降）
+	/// 画⾯表⽰線幅
+	/// </summary>
 	DWORD m_anPenWidth_SXF[257];
+	/// <summary>
+	/// SXF対応拡張線⾊定義（Ver.4.20以降）
+	/// プリンタ出⼒⾊
+	/// </summary>
 	DWORD m_aPrtPenColor_SXF[257];
+	/// <summary>
+	/// SXF対応拡張線⾊定義（Ver.4.20以降）
+	/// プリンタ出⼒線幅
+	/// </summary>
 	DWORD m_anPrtPenWidth_SXF[257];
+	/// <summary>
+	/// SXF対応拡張線⾊定義（Ver.4.20以降）
+	/// 点半径
+	/// </summary>
 	double m_adPrtTenHankei_SXF[257];
 	//◆ SXF対応拡張線種定義（Ver.4.20以降）
 	//● パターン
