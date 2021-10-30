@@ -1181,6 +1181,7 @@ namespace JwwHelper {
 			}
 		};
 
+	internal:
 		CJwwHeader* GetNativeHeader() {
 			return m_pHeader;
 		}
