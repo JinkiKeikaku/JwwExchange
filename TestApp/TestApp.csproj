@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <StartupObject>TestApp.Program</StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,13 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JwwHelper\JwwHelper.vcxproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="JwwHelper">
-      <HintPath>bin\Debug\net5.0-windows\JwwHelper.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\JwwHelper\JwwHelper.vcxproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

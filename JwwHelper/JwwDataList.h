@@ -13,9 +13,10 @@ namespace JwwHelper {
 		/// DataList‚Ì}Œ`‚ğæ“¾‚·‚é‚½‚ß‚Ég‚¤B
 		/// </summary>
 		delegate bool EnumerateShapeCallback(JwwData^);
-	internal:
+	public:
 		JwwDataList() : JwwData(new CDataList(), false){
 		}
+	internal:
 		JwwDataList(CDataList* pDataList) : JwwData(pDataList, false) {
 		}
 		property CDataList* m_pDataList {
