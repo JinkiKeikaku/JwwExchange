@@ -23,15 +23,26 @@ namespace JwwHelper {
 			CDataList* get() { return (CDataList*)m_pData; }
 		}
 	public:
+
+		/// <summary>
+		/// 定義データの通し番号
+		/// </summary>
 		property short m_nNumber {
 			short get() { return m_pDataList->m_nNumber; }
 			void set(short value) { m_pDataList->m_nNumber = value; }
 		};
+
+		/// <summary>
+		/// 参照されているかのフラグ
+		/// </summary>
 		property bool m_bReffered {
 			bool get() { return m_pDataList->m_bReffered; }
 			void set(bool value) { m_pDataList->m_bReffered = value; }
 		};
 
+		/// <summary>
+		/// 定義された時間
+		/// </summary>
 		property DateTime^ m_time {
 			DateTime^ get() { return  gcnew DateTime(
 					m_pDataList->m_time.GetYear(), m_pDataList->m_time.GetMonth(), m_pDataList->m_time.GetDay(),
@@ -47,6 +58,9 @@ namespace JwwHelper {
 			}
 		};
 
+		/// <summary>
+		/// 定義データの名前
+		/// </summary>
 		property String^ m_strName {
 			String^ get() { return gcnew String(CA2W(m_pDataList->m_strName.GetString())); }
 			void set(String^ value) { 
@@ -55,6 +69,14 @@ namespace JwwHelper {
 				m_pDataList->m_strName = astr;
 			}
 		};
+
+		/// <summary>
+		/// ブロック図形内の図形数を返します。
+		/// </summary>
+		/// <returns></returns>
+		int GetSize() {
+			return m_pDataList->m_DataList.GetCount();
+		}
 
 		/// <summary>
 		/// ブロック図形の図形要素を列挙します。[callback]がfalseを返すと列挙を中止します。
@@ -73,8 +95,12 @@ namespace JwwHelper {
 			}
 			return flag;
 		}
-		void Add(JwwData^ data) {
 
+		/// <summary>
+		/// 図形を追加。
+		/// </summary>
+		/// <param name="data"></param>
+		void Add(JwwData^ data) {
 			m_pDataList->m_DataList.AddHead(data->Clone());
 		}
 	};
