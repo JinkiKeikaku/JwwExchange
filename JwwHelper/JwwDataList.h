@@ -74,6 +74,7 @@ namespace JwwHelper {
 			return flag;
 		}
 		void Add(JwwData^ data) {
+
 			m_pDataList->m_DataList.AddHead(data->Clone());
 		}
 	};

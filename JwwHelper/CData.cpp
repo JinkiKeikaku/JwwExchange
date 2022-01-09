@@ -59,6 +59,7 @@ void CData::CopyFrom(CData* src) {
 }
 
 CData* CData::Clone(){
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
 	CMemFile mem;
 	CArchive store(&mem, CArchive::store);
 	store.SetObjectSchema(JWW_VERSION);
