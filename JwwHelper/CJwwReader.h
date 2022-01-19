@@ -4,6 +4,7 @@
 #include "CJwwHeader.h"
 #include "CJwwImage.h"
 #include<vector>
+
 class CJwwReader :public CJwwReaderBase
 {
 public:

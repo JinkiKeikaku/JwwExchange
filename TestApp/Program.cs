@@ -14,9 +14,10 @@ namespace TestApp {
         /// </summary>
         [STAThread]
         static void Main() {
-            //string MyPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
-            //var b = NativeDllDir.Set(MyPath + @"\x86", MyPath + @"\x64");
             string assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+/*
+ * 64bit‚Æ32bit‚ÅØ‘Ö
             AppDomain.CurrentDomain.AssemblyResolve += (_, e) => {
                 if (e.Name.StartsWith("JwwHelper,", StringComparison.OrdinalIgnoreCase)) {
                     string fileName = Path.Combine(assemblyDir,
@@ -26,7 +27,7 @@ namespace TestApp {
                 }
                 return null;
             };
-
+*/
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

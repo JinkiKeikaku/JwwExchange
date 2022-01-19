@@ -118,8 +118,9 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>md  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x86
-copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x86</Command>
+      <Command>copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\x86\Debug\net5.0-windows
+rem md  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x86
+rem copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x86</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

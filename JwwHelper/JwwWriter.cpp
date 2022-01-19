@@ -31,14 +31,20 @@ namespace JwwHelper {
 		AFX_MANAGE_STATE(AfxGetStaticModuleState());
 		m_pWriter->m_DataListList.AddTail((CDataList*)dataList->Clone());
 	}
+	void JwwWriter::AddImage(JwwImage^ image) {
+		m_pWriter->m_Images.push_back(image->m_pImage->Clone());
+	}
+
 	void JwwWriter::Write(String^ path) {
 		AFX_MANAGE_STATE(AfxGetStaticModuleState());
 		pin_ptr<const WCHAR> str = PtrToStringChars(path);
 		CW2A astr(str);
 		//C#‘¤ƒwƒbƒ_[‚ÅC++‘¤‚ð‰Šú‰»
 		m_pWriter->InitHeader(_Header->GetNativeHeader());
+		//for (int i = 0; i < mImages->Length; i++) {
+		//	CJwwImage* ji = mImages[i]->m_pImage->Clone();
+		//	m_pWriter->m_Images.push_back(ji);
+		//}
 		m_pWriter->Write(astr);
 	}
-
-
 }

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": "net5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    "net5.0": {
+      "JwwHelper/1.0.0": {
+        "runtime": {
+          "JwwHelper.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "JwwHelper/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

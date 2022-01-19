@@ -22,6 +22,9 @@ CJwwWriter::~CJwwWriter() {
 			delete data;
 		}
 	}
+	for (size_t i = 0; i < m_Images.size(); i++) {
+		delete m_Images[i];
+	}
 }
 
 void CJwwWriter::Write(LPCTSTR path) {
@@ -69,17 +72,12 @@ void CJwwWriter::WriteDataList(CArchive& ar) {
 }
 
 void CJwwWriter::WriteImage(CArchive& ar) {
-	ar << m_ImageDatas.GetCount();
-	POSITION pos = m_ImageDatas.GetHeadPosition();
-	while (pos != NULL) {
-		const CImageData& p = m_ImageDatas.GetNext(pos);
-		ar << p.m_JwwPath;
-		CFile f;
-		f.Open(p.m_ImagePath, CFile::modeRead);
-		DWORD n = f.GetLength();
-		BYTE* buf = new BYTE[n];
-		f.Read(buf, n);
-		ar.Write(buf, n);
+	ar << (UINT)m_Images.size();
+	for(size_t i = 0; i < m_Images.size(); i++){
+		CJwwImage* p = m_Images[i];
+		ar << p->m_ImageName;
+		ar << (UINT)p->m_Size;
+		ar.Write(p->m_pBuffer, p->m_Size);
 	}
 }
 

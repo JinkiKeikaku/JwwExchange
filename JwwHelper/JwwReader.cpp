@@ -39,7 +39,7 @@ namespace JwwHelper {
 		}
 
 		mImages = gcnew array<JwwImage^>(m_pReader->m_Images.size());
-		for (int i = 0; i < m_pReader->m_Images.size(); i++) {
+		for (size_t i = 0; i < m_pReader->m_Images.size(); i++) {
 			mImages[i] = gcnew JwwImage(m_pReader->m_Images[i]);
 		}
 		//画像データは大きいのでクローンは作らない。おおもとのデータをManagedで管理する。

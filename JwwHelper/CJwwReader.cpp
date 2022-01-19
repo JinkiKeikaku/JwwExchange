@@ -6,7 +6,7 @@ CJwwReader::CJwwReader() : CJwwReaderBase() {
 }
 CJwwReader::~CJwwReader() {
 	delete m_pHeader;
-	for (int i = 0; i < m_Images.size(); i++) {
+	for (size_t i = 0; i < m_Images.size(); i++) {
 		delete m_Images[i];
 	}
 }

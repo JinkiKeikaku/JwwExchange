@@ -5,16 +5,19 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>TestApp.Program</StartupObject>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\JwwHelper\JwwHelper.vcxproj">
-      <Private>false</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\JwwHelper\JwwHelper.vcxproj" />
   </ItemGroup>
 
 </Project>

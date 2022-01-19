@@ -10,6 +10,7 @@
 #include "JwwSolid.h"
 #include "JwwBlock.h"
 #include "JwwDataList.h"
+#include "JwwImage.h"
 using namespace System;
 namespace JwwHelper {
 
@@ -21,6 +22,15 @@ namespace JwwHelper {
 				return _Header;
 			}
 		}
+		/// <summary>
+		/// 画像同梱のデータ配列。画像は圧縮されている。詳細は本家の説明書を見てください。
+		/// </summary>
+		//property array<JwwImage^>^ Images {
+		//	array<JwwImage^>^ get() {
+		//		return mImages;
+		//	}
+		//}
+
 	public:
 		JwwWriter();
 		/// <summary>
@@ -34,6 +44,7 @@ namespace JwwHelper {
 		void Write(String^ path);
 		void AddData(JwwData^ data);
 		void AddDataList(JwwDataList^ dataList);
+		void AddImage(JwwImage^ image);
 	public:
 		~JwwWriter();
 		!JwwWriter();
@@ -41,5 +52,6 @@ namespace JwwHelper {
 	private:
 		CJwwWriter* m_pWriter;
 		JwwHeader^ _Header;
+		//array<JwwImage^>^ mImages = gcnew array<JwwImage^>(0);
 	};
 }
