@@ -82,15 +82,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\Output\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\Output\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\Output\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)$(Platform)\$(Configuration)\Output\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -119,9 +125,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\x86\Debug\net5.0-windows
-rem md  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x86
-rem copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x86</Command>
+      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
+copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -133,6 +138,7 @@ rem copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-w
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MinimalRebuild>false</MinimalRebuild>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,8 +154,8 @@ rem copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-w
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>md  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x64
-copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-windows\x64</Command>
+      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
+copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -178,6 +184,10 @@ copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-windo
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
+copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -188,6 +198,7 @@ copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-windo
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <GenerateXMLDocumentationFiles>true</GenerateXMLDocumentationFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -204,6 +215,10 @@ copy /y $(TargetDir)$(TargetName)*  $(SolutionDir)TestApp\bin\Debug\net5.0-windo
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
+    <PostBuildEvent>
+      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
+copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CData.cpp" />
