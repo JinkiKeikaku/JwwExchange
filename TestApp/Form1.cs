@@ -75,16 +75,16 @@ namespace TestApp {
         void OpenFile(String path) {
             try {
                 if (Path.GetExtension(path) == ".jww") {
-                    //JwwReaderが読み込み用のクラス。Completedは読み込み完了時に実行される関数。
-                    //"d:\\ccc\\"はファイルに同梱画像があった時に画像が保存されるフォルダ。
-                    using var reader = new JwwHelper.JwwReader(Completed);
-                    reader.Read(path);
+                    //JwwReaderが読み込み用のクラス。
+                    using var reader = new JwwHelper.JwwReader();
+                    //Completedは読み込み完了時に実行される関数。
+                    reader.Read(path, Completed);
                     var a = reader.Header.m_jwwDataVersion;
 
                 } else if (Path.GetExtension(path) == ".jws") {
-                    //jwsも読めますが、このプロジェクトでは確認用のコード上がりません。
-                    using var a = new JwwHelper.JwsReader(Completed2);
-                    a.Read(path);
+                    //jwsも読めますが、このプロジェクトでは確認用のコードがありません。
+                    using var a = new JwwHelper.JwsReader();
+                    a.Read(path, Completed2);
                 }
             } catch (Exception exception) {
                 textBox1.Text = "";

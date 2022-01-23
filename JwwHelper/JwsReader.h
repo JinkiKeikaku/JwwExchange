@@ -12,8 +12,7 @@ namespace JwwHelper {
 	public:
 		delegate void CompletedCallback(JwsReader^);
 	public:
-		JwsReader(CompletedCallback^ completed) {
-			m_Completed = completed;
+		JwsReader() {
 			m_pReader = new CJwsReader();
 		}
 		~JwsReader() { this->!JwsReader(); }
@@ -31,7 +30,7 @@ namespace JwwHelper {
 
 
 	public:
-		void Read(String^ path);
+		void Read(String^ path, CompletedCallback^ completed);
 		int GetBlockSize() {
 			return mDataListList->Count;
 		}
@@ -43,7 +42,6 @@ namespace JwwHelper {
 
 	protected:
 		CJwsReader* m_pReader;
-		CompletedCallback^ m_Completed;
 		void ConvertToManaged();
 
 	};

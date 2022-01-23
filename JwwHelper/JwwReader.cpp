@@ -12,15 +12,15 @@
 #include "JwwImage.h"
 
 namespace JwwHelper {
-	void JwwReader::Read(String^ path) {
+	void JwwReader::Read(String^ path, CompletedCallback^ completed) {
 		AFX_MANAGE_STATE(AfxGetStaticModuleState());
 		pin_ptr<const WCHAR> str = PtrToStringChars(path);
 		CW2A astr(str);
 
 		m_pReader->Read(astr);
 		ConvertToManaged();
-		if (m_Completed != nullptr) {
-			m_Completed(this);
+		if (completed != nullptr) {
+			completed(this);
 		}
 	}
 	void JwwReader::ConvertToManaged() {

@@ -20,10 +20,10 @@ namespace JwwHelper {
 		delegate void CompletedCallback(JwwReader^);
 	public:
 		/// <summary>
-		/// コンストラクタ。引数としてファイル読み込み完了時に呼ばれるコールバックを渡す。
+		/// コンストラクタ。
 		/// </summary>
-		JwwReader(CompletedCallback^ completed) {
-			m_Completed = completed;
+		JwwReader() {
+//			m_Completed = completed;
 			m_pReader = new CJwwReader();
 		}
 		~JwwReader() { this->!JwwReader(); }
@@ -60,10 +60,10 @@ namespace JwwHelper {
 
 	public:
 		/// <summary>
-		/// ファイル読み込み。読み込み完了時はコンストラクタに渡したコールバックが呼ばれる。
+		/// ファイル読み込み。読み込み完了時は渡したコールバックが呼ばれる。
 		/// </summary>
 		/// <param name="path"></param>
-		void Read(String^ path);
+		void Read(String^ path, CompletedCallback^ completed);
 		/// <summary>
 		/// ブロック図形数。
 		/// </summary>
@@ -77,7 +77,7 @@ namespace JwwHelper {
 		List<JwwDataList^>^ mDataListList = gcnew List<JwwDataList^>();
 		array<JwwImage^>^ mImages = gcnew array<JwwImage^>(0);
 		CJwwReader* m_pReader;
-		CompletedCallback^ m_Completed;
+//		CompletedCallback^ m_Completed;
 
 		void ConvertToManaged();
 	};
