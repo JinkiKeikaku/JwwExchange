@@ -13,25 +13,24 @@
 #include "JwwImage.h"
 using namespace System;
 namespace JwwHelper {
-
+	/// <summary>
+	/// jwwファイル保存クラス。
+	/// </summary>
 	public ref class JwwWriter
 	{
 	public:
+		/// <summary>
+		/// ヘッダー
+		/// </summary>
 		property JwwHeader^ Header {
 			JwwHeader^ get() {
 				return _Header;
 			}
 		}
-		/// <summary>
-		/// 画像同梱のデータ配列。画像は圧縮されている。詳細は本家の説明書を見てください。
-		/// </summary>
-		//property array<JwwImage^>^ Images {
-		//	array<JwwImage^>^ get() {
-		//		return mImages;
-		//	}
-		//}
-
 	public:
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
 		JwwWriter();
 		/// <summary>
 		/// ヘッダーは設定項目が多いのでjwwファイルにより初期化します。
@@ -41,9 +40,24 @@ namespace JwwHelper {
 		/// </summary>
 		/// <param name="templatePath">テンプレートファイルのパス</param>
 		void InitHeader(String^ templatePath);
+
+		/// <summary>
+		/// ファイル書き出し
+		/// </summary>
+		/// <param name="path"></param>
 		void Write(String^ path);
+		/// <summary>
+		/// 書き込む図形を追加します。
+		/// </summary>
+		/// <param name="data"></param>
 		void AddData(JwwData^ data);
+		/// <summary>
+		/// ブロック図形の実体を追加します。
+		/// </summary>
 		void AddDataList(JwwDataList^ dataList);
+		/// <summary>
+		/// 同梱画像を追加します。画像
+		/// </summary>
 		void AddImage(JwwImage^ image);
 	public:
 		~JwwWriter();

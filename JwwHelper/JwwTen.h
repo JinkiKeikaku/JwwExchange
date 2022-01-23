@@ -3,6 +3,9 @@
 #include "CDataTen.h"
 
 namespace JwwHelper {
+    /// <summary>
+    /// ì_ê}å`ÅB
+    /// </summary>
     public ref class JwwTen :
         public JwwData
     {

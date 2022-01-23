@@ -6,6 +6,10 @@
 using namespace System;
 
 namespace JwwHelper {
+
+	/// <summary>
+	/// ブロック図形の実体図形のリスト
+	/// </summary>
 	public ref class JwwDataList : public JwwData
 	{
 	public:
@@ -14,6 +18,9 @@ namespace JwwHelper {
 		/// </summary>
 		delegate bool EnumerateShapeCallback(JwwData^);
 	public:
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
 		JwwDataList() : JwwData(new CDataList(), false){
 		}
 	internal:
@@ -73,7 +80,6 @@ namespace JwwHelper {
 		/// <summary>
 		/// ブロック図形内の図形数を返します。
 		/// </summary>
-		/// <returns></returns>
 		int GetSize() {
 			return m_pDataList->m_DataList.GetCount();
 		}
@@ -99,7 +105,6 @@ namespace JwwHelper {
 		/// <summary>
 		/// 図形を追加。
 		/// </summary>
-		/// <param name="data"></param>
 		void Add(JwwData^ data) {
 			m_pDataList->m_DataList.AddHead(data->Clone());
 		}

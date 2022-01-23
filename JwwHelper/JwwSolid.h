@@ -3,6 +3,9 @@
 #include "CDataSolid.h"
 
 namespace JwwHelper {
+	/// <summary>
+	/// ソリッド図形。円弧ソリッドは頑張ってください。
+	/// </summary>
 	public ref class JwwSolid :
         public JwwData
     {

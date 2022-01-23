@@ -6,6 +6,9 @@
 #include "CDataSunpou.h"
 
 namespace JwwHelper {
+    /// <summary>
+    /// ê°ñ@ê}å`ÅB
+    /// </summary>
     public ref class JwwSunpou :public JwwData
     {
 		JwwSen^ _m_Sen;

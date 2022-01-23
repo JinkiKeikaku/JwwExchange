@@ -3,6 +3,9 @@
 #include"CDataEnko.h"
 
 namespace JwwHelper {
+	/// <summary>
+	/// ë»â~ÅAë»â~å ÉNÉâÉX
+	/// </summary>
 	public ref class JwwEnko : public JwwData
 	{
 	public:
@@ -49,6 +52,10 @@ namespace JwwHelper {
 			double get() { return ((CDataEnko*)m_pData)->m_dHenpeiRitsu; }
 			void set(double value) { ((CDataEnko*)m_pData)->m_dHenpeiRitsu = value; }
 		};
+
+		/// <summary>
+		/// ÇΩÇ‘ÇÒ1Ç»ÇÁâ~å Ç≈Ç»Ç≠â~Ç…Ç»ÇÈÅB
+		/// </summary>
 		property int m_bZenEnFlg {
 			int get() { return ((CDataEnko*)m_pData)->m_bZenEnFlg; }
 			void set(int value) { ((CDataEnko*)m_pData)->m_bZenEnFlg = value; }

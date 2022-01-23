@@ -22,18 +22,30 @@ namespace JwwHelper {
 			//	" K:" + m_dKankaku + " A:" + m_degKakudo + " F:" + m_strFontName + " S:" + m_string);
 		}
 	public:
+		/// <summary>
+		/// 始点X座標。始点は左下。
+		/// </summary>
 		property double m_start_x {
 			double get() { return ((CDataMoji*)m_pData)->m_start_x; }
 			void set(double value) { ((CDataMoji*)m_pData)->m_start_x = value; }
 		};
+		/// <summary>
+		/// 始点y座標。始点は左下。
+		/// </summary>
 		property double m_start_y {
 			double get() { return ((CDataMoji*)m_pData)->m_start_y; }
 			void set(double value) { ((CDataMoji*)m_pData)->m_start_y = value; }
 		};
+		/// <summary>
+		/// 終点X座標。始点は右下。
+		/// </summary>
 		property double m_end_x {
 			double get() { return ((CDataMoji*)m_pData)->m_end_x; }
 			void set(double value) { ((CDataMoji*)m_pData)->m_end_x = value; }
 		};
+		/// <summary>
+		/// 終点y座標。始点は右下。
+		/// </summary>
 		property double m_end_y {
 			double get() { return ((CDataMoji*)m_pData)->m_end_y; }
 			void set(double value) { ((CDataMoji*)m_pData)->m_end_y = value; }

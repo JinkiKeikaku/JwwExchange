@@ -3,9 +3,17 @@
 using namespace System::Runtime::InteropServices;
 
 namespace JwwHelper {
+	/// <summary>
+	/// 同梱画像の実体。オブジェクト作成はコンストラクタではなく、JwwImage.Create()を使います。
+	/// </summary>
 	public ref class JwwImage
 	{
 	public:
+		/// <summary>
+		/// <para>オブジェクト作成。イメージは圧縮される。[imageName]の拡張子は圧縮ありのため".gz"を付ける。</para>
+		/// <para>画像データはおそらくWindowsのBitmapしか使えない。</para>
+		/// <para>画像の図形データは別にJwwMojiを使う。</para>
+		/// </summary>
 		static JwwImage^ Create(String^ imageName, array<byte>^ buffer) {
 			BYTE* buf = new BYTE[buffer->Length];
 			Marshal::Copy(buffer, 0, (IntPtr)buf, buffer->Length);
@@ -38,11 +46,18 @@ namespace JwwHelper {
 				m_pImage->m_ImageName = astr;
 			}
 		};
+
+		/// <summary>
+		/// イメージバッファーのサイズ
+		/// </summary>
 		property int Size {
 			int get() {
 				return m_pImage->m_Size;
 			}
 		}
+		/// <summary>
+		/// イメージバッファー
+		/// </summary>
 		property array<byte>^ Buffer {
 			array<byte>^ get(){
 				array<byte>^ buf = gcnew array<byte>(m_pImage->m_Size);

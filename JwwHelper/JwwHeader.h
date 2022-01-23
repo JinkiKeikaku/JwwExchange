@@ -6,6 +6,9 @@ using namespace System;
 #include "WrapArray.h"
 
 namespace JwwHelper {
+	/// <summary>
+	/// jwwファイルのヘッダー情報。メンバ詳細は本家のドキュメントを参照すること。
+	/// </summary>
 	public ref class JwwHeader
 	{
 	private:
