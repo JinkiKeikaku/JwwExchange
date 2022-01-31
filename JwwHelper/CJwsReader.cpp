@@ -23,3 +23,4 @@ void CJwsReader::ReadFileType(CArchive& ar) {
 void CJwsReader::ReadHeader(CArchive& ar) {
 	m_pHeader->Read(ar);
 }
+

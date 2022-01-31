@@ -57,6 +57,11 @@ namespace JwwHelper {
             double get() { return m_pHeader->m_Bounds_Top; }
             void set(double value) { m_pHeader->m_Bounds_Top = value; }
         };
+    internal:
+        CJwsHeader* GetNativeHeader() {
+            return m_pHeader;
+        }
+
     };
 }
 

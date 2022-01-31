@@ -5,6 +5,7 @@ using namespace System::Collections::Generic;
 #include "JwwData.h"
 #include "JwwDataList.h"
 #include "CJwsReader.h"
+#include "JwwImage.h"
 
 namespace JwwHelper {
 	public ref class JwsReader
@@ -18,12 +19,21 @@ namespace JwwHelper {
 		~JwsReader() { this->!JwsReader(); }
 		!JwsReader() { delete m_pReader; }
 	public:
+		/// <summary>
+		/// jwsファイルのヘッダー
+		/// </summary>
 		property JwsHeader^ Header {
 			JwsHeader^ get() { return mHeader; }
 		};
+		/// <summary>
+		/// 図形のリスト
+		/// </summary>
 		property List<JwwData^>^ DataList {
 			List<JwwData^>^ get() { return mDataList; }
 		};
+		/// <summary>
+		/// ブロック図形実体のリスト
+		/// </summary>
 		property List<JwwDataList^>^ DataListList {
 			List<JwwDataList^>^ get() { return mDataListList; }
 		};

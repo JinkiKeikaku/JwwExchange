@@ -11,7 +11,7 @@ namespace TestApp {
 
         private void btnOpen_Click(object sender, EventArgs e) {
             var f = new OpenFileDialog();
-            f.Filter = "Jww Files|*.jww|All Files|*.*";
+            f.Filter = "Jww Files|*.jww|Jws Files|*.jws|All Files|*.*";
             if (f.ShowDialog() != DialogResult.OK) return;
             OpenFile(f.FileName);
             //ガベコレしないとunmanage側のString関係のオブジェクトでコンソールにメッセージが出るので
@@ -133,7 +133,26 @@ namespace TestApp {
         }
         //dllでjwsファイル読み込み完了後に呼ばれます。確認用のコードは未実装。
         void Completed2(JwwHelper.JwsReader reader) {
-            var a = 1;
+            var sb = new StringBuilder();
+            var header = reader.Header;
+            sb.AppendLine("Bounds=============================================");
+            sb.AppendLine($"({header.m_Bounds_Left}, {header.m_Bounds_Bottom}, {header.m_Bounds_Right}, {header.m_Bounds_Top})");
+            sb.AppendLine("Origin=============================================");
+            sb.AppendLine($"({header.m_Origin_x}, {header.m_Origin_y})");
+            sb.AppendLine("Scales=============================================");
+            foreach (var s in header.m_Scales) {
+                sb.AppendLine(s.ToString());
+            }
+            sb.AppendLine("Blocks=============================================");
+            sb.AppendLine("Size of blocks:" + reader.GetBlockSize());
+            sb.AppendLine("Shapes=============================================");
+            var dataList = reader.DataList;
+            foreach (var s in dataList)
+            {
+                sb.Append(s.GetType().Name);
+                sb.AppendLine(s.ToString());
+            }
+            textBox1.Text = sb.ToString();
         }
 
     }

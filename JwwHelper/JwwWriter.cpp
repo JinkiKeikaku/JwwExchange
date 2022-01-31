@@ -41,10 +41,6 @@ namespace JwwHelper {
 		CW2A astr(str);
 		//C#‘¤ƒwƒbƒ_[‚ÅC++‘¤‚ğ‰Šú‰»
 		m_pWriter->InitHeader(_Header->GetNativeHeader());
-		//for (int i = 0; i < mImages->Length; i++) {
-		//	CJwwImage* ji = mImages[i]->m_pImage->Clone();
-		//	m_pWriter->m_Images.push_back(ji);
-		//}
 		m_pWriter->Write(astr);
 	}
 }

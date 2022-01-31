@@ -125,8 +125,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
-copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
+      <Command>xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
+xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,8 +154,8 @@ copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
-copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
+      <Command>xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
+xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -185,8 +185,8 @@ copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
-copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
+      <Command>xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
+xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -216,8 +216,8 @@ copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy /y $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
-copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
+      <Command>xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
+xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -232,12 +232,15 @@ copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     <ClCompile Include="CDataTen.cpp" />
     <ClCompile Include="CJwsHeader.cpp" />
     <ClCompile Include="CJwsReader.cpp" />
+    <ClCompile Include="CJwsWriter.cpp" />
     <ClCompile Include="CJwwHeader.cpp" />
     <ClCompile Include="CJwwImage.cpp" />
     <ClCompile Include="CJwwReader.cpp" />
     <ClCompile Include="CJwwReaderBase.cpp" />
     <ClCompile Include="CJwwWriter.cpp" />
+    <ClCompile Include="CJwwWriterBase.cpp" />
     <ClCompile Include="JwsReader.cpp" />
+    <ClCompile Include="JwsWriter.cpp" />
     <ClCompile Include="JwwHelper.cpp" />
     <ClCompile Include="JwwReader.cpp" />
     <ClCompile Include="JwwUtility.cpp" />
@@ -265,13 +268,16 @@ copy /y $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     <ClInclude Include="CDataTen.h" />
     <ClInclude Include="CJwsHeader.h" />
     <ClInclude Include="CJwsReader.h" />
+    <ClInclude Include="CJwsWriter.h" />
     <ClInclude Include="CJwwImage.h" />
     <ClInclude Include="CJwwReader.h" />
     <ClInclude Include="CJwwReaderBase.h" />
     <ClInclude Include="CJwwWriter.h" />
+    <ClInclude Include="CJwwWriterBase.h" />
     <ClInclude Include="CStringArray.h" />
     <ClInclude Include="JwsHeader.h" />
     <ClInclude Include="JwsReader.h" />
+    <ClInclude Include="JwsWriter.h" />
     <ClInclude Include="JwwBlock.h" />
     <ClInclude Include="JwwCommon.h" />
     <ClInclude Include="CJwwHeader.h" />
