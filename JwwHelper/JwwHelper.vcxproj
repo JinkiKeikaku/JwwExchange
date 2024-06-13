@@ -125,8 +125,8 @@
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
-xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
+      <Command>echo F|xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x86.dll
+echo F|xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -154,8 +154,8 @@ xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x86.xml</Command>
       <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
-xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
+      <Command>echo F|xcopy /y /i $(OutputPath)JwwHelper.dll $(OutputPath)JwwHelper_x64.dll
+echo F|xcopy /y /i $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
