@@ -73,7 +73,7 @@ namespace TestApp {
             }
         }
         void OpenFile(String path) {
-            try {
+//            try {
                 if (Path.GetExtension(path) == ".jww") {
                     //JwwReaderが読み込み用のクラス。
                     using var reader = new JwwHelper.JwwReader();
@@ -86,10 +86,10 @@ namespace TestApp {
                     using var a = new JwwHelper.JwsReader();
                     a.Read(path, Completed2);
                 }
-            } catch (Exception exception) {
-                textBox1.Text = "";
-                MessageBox.Show(exception.Message, "Error");
-            }
+            //} catch (Exception exception) {
+            //    textBox1.Text = "";
+            //    MessageBox.Show(exception.Message, "Error");
+            //}
         }
 
         //dllでjwwファイル読み込み完了後に呼ばれます。これは確認用のコードです。
@@ -100,12 +100,17 @@ namespace TestApp {
             sb.AppendLine("Layers=============================================");
             for (var j = 0; j < 16; j++) {
 
-                sb.AppendLine("Layer group " + j + " Name:" + header.m_aStrGLayName[j] + " Scale:" + header.m_adScale[j]);
+                sb.AppendLine(
+                    "Layer group " + j + " Name:" + header.m_aStrGLayName[j] + " Scale:" + header.m_adScale[j] +
+                    " anGLay" + header.m_anGLay[j]);
                 for (var i = 0; i < 16; i++) {
                     if (i % 2 == 1) {
-                        sb.AppendLine("  Layer " + i + " Name:" + header.m_aStrLayName[j][i]);
+                        sb.AppendLine(
+                            "  Layer " + i + " Name:" + header.m_aStrLayName[j][i] + 
+                            " anLay" + header.m_aanLay[j][i]);
                     } else {
-                        sb.Append("  Layer " + i + " Name:" + header.m_aStrLayName[j][i]);
+                        sb.Append("  Layer " + i + " Name:" + header.m_aStrLayName[j][i] + 
+                            " anLay" + header.m_aanLay[j][i]);
                     }
                 }
             }

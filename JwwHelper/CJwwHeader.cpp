@@ -172,28 +172,31 @@ void CJwwHeader::Read(CArchive& ar) {
 	ar >> m_nPrtKyoutsuuGray;
 	ar >> m_nPrtDispOnlyNonDraw;
 
-	ar >> m_lnDrawTime;
-
-	ar >> nEyeInit;
-	ar >> m_dEye_H_Ichi_1;
-	m_dEye_H_Ichi_1 /= 100;
-	ar >> m_dEye_H_Ichi_2;
-	m_dEye_H_Ichi_2 /= 100;
-	ar >> m_dEye_H_Ichi_3;
-	m_dEye_H_Ichi_3 /= 100;
-	ar >> m_dEye_Z_Ichi_1;
-	ar >> m_dEye_Y_Ichi_1;
-	ar >> m_dEye_Z_Ichi_2;
-	ar >> m_dEye_Y_Ichi_2;
-	ar >> m_dEye_V_Ichi_3;
-	ar >> m_dSenNagasaSnpou;
-	ar >> m_dBoxSunpouX;
-	ar >> m_dBoxSunpouY;
-	ar >> m_dEnHankeiSnpou;
-
-	ar >> m_nSolidNinniColor;
-	ar >> m_SolidColor; //RGB
-
+	if (m_jwwDataVersion >= 223) { //Ver.2.2.3以降
+		ar >> m_lnDrawTime;
+		ar >> nEyeInit;
+		ar >> m_dEye_H_Ichi_1;
+		m_dEye_H_Ichi_1 /= 100;
+		ar >> m_dEye_H_Ichi_2;
+		m_dEye_H_Ichi_2 /= 100;
+		ar >> m_dEye_H_Ichi_3;
+		m_dEye_H_Ichi_3 /= 100;
+		ar >> m_dEye_Z_Ichi_1;
+		ar >> m_dEye_Y_Ichi_1;
+		ar >> m_dEye_Z_Ichi_2;
+		ar >> m_dEye_Y_Ichi_2;
+		ar >> m_dEye_V_Ichi_3;
+	}
+	if (m_jwwDataVersion >= 225) { //Ver.2.2.5以降
+		ar >> m_dSenNagasaSnpou;
+		ar >> m_dBoxSunpouX;
+		ar >> m_dBoxSunpouY;
+		ar >> m_dEnHankeiSnpou;
+	}
+	if (m_jwwDataVersion >= 230) { //Ver.2.3.0以降
+		ar >> m_nSolidNinniColor;
+		ar >> m_SolidColor; //RGB
+	}
 
 	if (m_jwwDataVersion >= 420) { //Ver.4.25以降
 		for (int n = 0; n <= 256; n++) { ////// 画⾯表⽰⾊
