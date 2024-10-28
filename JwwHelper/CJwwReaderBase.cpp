@@ -42,6 +42,28 @@ void CJwwReaderBase::Read(LPCTSTR path) {
 		throw;
 	}
 }
+
+void CJwwReaderBase::Read(byte* buf, int size) {
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+	m_DataList.RemoveAll();
+	CMemFile file(buf, size);
+	CArchive ar(&file, CArchive::load);
+	try {
+		ReadFileType(ar);
+		ReadHeader(ar);
+		ReadData(ar);
+		ReadDataList(ar);
+		ReadImages(ar);
+		ar.Close();
+	}
+	catch (...) {
+		ar.Close();
+		throw;
+	}
+}
+
+
+
 void CJwwReaderBase::ReadData(CArchive& ar) {
 	m_DataList.Serialize(ar);
 }

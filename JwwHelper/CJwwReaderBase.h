@@ -15,6 +15,9 @@ public:
 	virtual void ReadFileType(CArchive& ar) = 0;
 	virtual void ReadHeader(CArchive& ar) = 0;
 	virtual void Read(LPCTSTR path);
+
+	virtual void Read(byte* buf, int size);
+
 	virtual void ReadImages(CArchive& ar) {}
 	void ReadData(CArchive& ar);
 	void ReadDataList(CArchive& ar);
