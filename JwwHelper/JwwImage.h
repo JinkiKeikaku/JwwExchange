@@ -18,8 +18,7 @@ namespace JwwHelper {
 			BYTE* buf = new BYTE[buffer->Length];
 			Marshal::Copy(buffer, 0, (IntPtr)buf, buffer->Length);
 			pin_ptr<const WCHAR> str = PtrToStringChars(imageName);
-			CW2A astr(str);
-			CJwwImage* image = new CJwwImage(CString(astr), buf, buffer->Length);
+			CJwwImage* image = new CJwwImage(CString(str), buf, buffer->Length);
 			return gcnew JwwImage(image);
 		}
 
@@ -38,12 +37,11 @@ namespace JwwHelper {
 		/// </summary>
 		property String^ ImageName {
 			String^ get() {
-				return gcnew String(CA2W(m_pImage->m_ImageName.GetString()));
+				return gcnew String(m_pImage->m_ImageName.GetString());
 			}
 			void set(String^ value) {
 				pin_ptr<const WCHAR> str = PtrToStringChars(value);
-				CW2A astr(str);
-				m_pImage->m_ImageName = astr;
+				m_pImage->m_ImageName = str;
 			}
 		};
 

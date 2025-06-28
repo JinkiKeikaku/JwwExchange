@@ -69,11 +69,10 @@ namespace JwwHelper {
 		/// 定義データの名前
 		/// </summary>
 		property String^ m_strName {
-			String^ get() { return gcnew String(CA2W(m_pDataList->m_strName.GetString())); }
+			String^ get() { return gcnew String(m_pDataList->m_strName.GetString()); }
 			void set(String^ value) { 
 				pin_ptr<const WCHAR> str = PtrToStringChars(value);
-				CW2A astr(str);
-				m_pDataList->m_strName = astr;
+				m_pDataList->m_strName = str;// astr;
 			}
 		};
 

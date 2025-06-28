@@ -24,9 +24,9 @@ namespace JwwHelper {
 	void JwsWriter::Write(String^ path) {
 		AFX_MANAGE_STATE(AfxGetStaticModuleState());
 		pin_ptr<const WCHAR> str = PtrToStringChars(path);
-		CW2A astr(str);
+		//CW2A astr(str);
 		m_pWriter->InitHeader(_Header->GetNativeHeader());
-		m_pWriter->Write(astr);
+		m_pWriter->Write(str);// astr);
 	}
 
 }

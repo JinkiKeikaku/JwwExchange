@@ -38,8 +38,7 @@ namespace JwwHelper {
 
 	void ConvertToCString(CString& dst, String^ src) {
 		pin_ptr<const WCHAR> str = PtrToStringChars(src);
-		CW2A astr(str);
-		dst = astr;
+		dst = str;
 	}
 
 }

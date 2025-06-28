@@ -15,9 +15,9 @@ namespace JwwHelper {
 	void JwwReader::Read(String^ path, CompletedCallback^ completed) {
 		AFX_MANAGE_STATE(AfxGetStaticModuleState());
 		pin_ptr<const WCHAR> str = PtrToStringChars(path);
-		CW2A astr(str);
+		//CW2A astr(str);
 
-		m_pReader->Read(astr);
+		m_pReader->Read(str);// astr);
 		ConvertToManaged();
 		if (completed != nullptr) {
 			completed(this);
