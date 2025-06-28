@@ -23,6 +23,18 @@ namespace JwwHelper {
 			completed(this);
 		}
 	}
+
+	void JwwReader::Read(array<byte>^ buffer, CompletedCallback^ completed)
+	{
+		AFX_MANAGE_STATE(AfxGetStaticModuleState());
+		pin_ptr<byte> pinned = &buffer[0];
+		m_pReader->Read((byte*)pinned, buffer->Length);
+		ConvertToManaged();
+		if (completed != nullptr) {
+			completed(this);
+		}
+	}
+
 	void JwwReader::ConvertToManaged() {
 		mHeader = gcnew JwwHeader(m_pReader->m_pHeader->Clone());
 		mDataList->Clear();

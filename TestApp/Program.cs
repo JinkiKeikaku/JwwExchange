@@ -17,7 +17,7 @@ namespace TestApp {
             string assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 /*
- * 64bit‚Æ32bit‚ÅØ‘Ö
+// 64bit‚Æ32bit‚ÅØ‘Ö
             AppDomain.CurrentDomain.AssemblyResolve += (_, e) => {
                 if (e.Name.StartsWith("JwwHelper,", StringComparison.OrdinalIgnoreCase)) {
                     string fileName = Path.Combine(assemblyDir,

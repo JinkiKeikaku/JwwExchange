@@ -13,7 +13,9 @@ public:
 	virtual ~CJwwWriterBase();
 	virtual void WriteFileType(CArchive& ar) = 0;
 	virtual void WriteHeader(CArchive& ar) = 0;
+	virtual void Write(CArchive& ar);
 	virtual void Write(LPCTSTR path);
+	virtual HANDLE WriteToMemory();
 	virtual void WriteImages(CArchive& ar) {}
 	void WriteData(CArchive& ar);
 	void WriteDataList(CArchive& ar);

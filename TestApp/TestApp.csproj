@@ -17,7 +17,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JwwHelper\JwwHelper.vcxproj" />
+    <ProjectReference Include="..\JwwHelper\JwwHelper.vcxproj">
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

@@ -30,12 +30,14 @@ namespace TestApp {
             btnPaste = new System.Windows.Forms.Button();
             btnOpen = new System.Windows.Forms.Button();
             textBox1 = new System.Windows.Forms.TextBox();
+            btnCopy = new System.Windows.Forms.Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.Controls.Add(btnSave);
+            panel1.Controls.Add(btnCopy);
             panel1.Controls.Add(btnPaste);
             panel1.Controls.Add(btnOpen);
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -84,6 +86,16 @@ namespace TestApp {
             textBox1.Size = new System.Drawing.Size(906, 509);
             textBox1.TabIndex = 1;
             // 
+            // btnCopy
+            // 
+            btnCopy.Location = new System.Drawing.Point(354, 13);
+            btnCopy.Name = "btnCopy";
+            btnCopy.Size = new System.Drawing.Size(75, 23);
+            btnCopy.TabIndex = 0;
+            btnCopy.Text = "Copy";
+            btnCopy.UseVisualStyleBackColor = true;
+            btnCopy.Click += btnCopy_Click;
+            // 
             // Form1
             // 
             AllowDrop = true;
@@ -108,6 +120,7 @@ namespace TestApp {
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btnPaste;
+        private System.Windows.Forms.Button btnCopy;
     }
 }
 

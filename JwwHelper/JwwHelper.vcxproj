@@ -234,6 +234,7 @@ copy /y  $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     <ClCompile Include="CJwsReader.cpp" />
     <ClCompile Include="CJwsWriter.cpp" />
     <ClCompile Include="CJwwClipReader.cpp" />
+    <ClCompile Include="CJwwClipWriter.cpp" />
     <ClCompile Include="CJwwHeader.cpp" />
     <ClCompile Include="CJwwImage.cpp" />
     <ClCompile Include="CJwwReader.cpp" />
@@ -244,6 +245,7 @@ copy /y  $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     <ClCompile Include="JwsReader.cpp" />
     <ClCompile Include="JwsWriter.cpp" />
     <ClCompile Include="JwwClipReader.cpp" />
+    <ClCompile Include="JwwClipWriter.cpp" />
     <ClCompile Include="JwwHelper.cpp" />
     <ClCompile Include="JwwReader.cpp" />
     <ClCompile Include="JwwUtility.cpp" />
@@ -273,6 +275,7 @@ copy /y  $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     <ClInclude Include="CJwsReader.h" />
     <ClInclude Include="CJwsWriter.h" />
     <ClInclude Include="CJwwClipReader.h" />
+    <ClInclude Include="CJwwClipWriter.h" />
     <ClInclude Include="CJwwImage.h" />
     <ClInclude Include="CJwwReader.h" />
     <ClInclude Include="CJwwReaderBase.h" />
@@ -286,6 +289,7 @@ copy /y  $(OutputPath)JwwHelper.xml $(OutputPath)JwwHelper_x64.xml</Command>
     <ClInclude Include="JwwBlock.h" />
     <ClInclude Include="JwwClipHeader.h" />
     <ClInclude Include="JwwClipReader.h" />
+    <ClInclude Include="JwwClipWriter.h" />
     <ClInclude Include="JwwCommon.h" />
     <ClInclude Include="CJwwHeader.h" />
     <ClInclude Include="framework.h" />

@@ -14,8 +14,9 @@ public:
 	virtual ~CJwwReaderBase();
 	virtual void ReadFileType(CArchive& ar) = 0;
 	virtual void ReadHeader(CArchive& ar) = 0;
-	virtual void Read(LPCTSTR path);
+	virtual void Read(CArchive& ar);
 
+	virtual void Read(LPCTSTR path);
 	virtual void Read(byte* buf, int size);
 
 	virtual void ReadImages(CArchive& ar) {}

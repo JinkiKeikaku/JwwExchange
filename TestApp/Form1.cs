@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -190,7 +191,7 @@ namespace TestApp {
             if (Clipboard.ContainsData("Jw_win"))
             {
                 var ms = Clipboard.GetData("Jw_win") as MemoryStream;
-                if(ms != null)
+                if (ms != null)
                 {
                     var buf = ms.ToArray();
                     using var reader = new JwwHelper.JwwClipReader();
@@ -222,5 +223,51 @@ namespace TestApp {
             }
             textBox1.Text = sb.ToString();
         }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            using var a = new JwwHelper.JwwClipWriter();
+
+            //図形オブジェクトを作ってAddData()で書き込む図形を追加します。
+            //適当に斜めの線を追加します。
+            //var s = new JwwHelper.JwwSen();
+            //s.m_start_x = 100.0;
+            //s.m_start_y = 100.0;
+            //s.m_end_x = -100.0;
+            //s.m_end_y = -100.0;
+            for (int i = 0; i < 5; i++)
+            {
+                var s = new JwwHelper.JwwSen();
+                s.m_start_x = 100.0 + i*10;
+                s.m_start_y = 100.0;
+                s.m_end_x = -100.0 + i * 10;
+                s.m_end_y = -100.0;
+                a.AddData(s);
+            }
+            
+            a.Header.m_Origin_x = -100.0;
+            a.Header.m_Origin_y = -100.0;
+
+            //Write()で書き込み。
+            IntPtr h = a.Write();
+            if (h == IntPtr.Zero) return;
+            OpenClipboard(this.Handle);
+            EmptyClipboard();
+            var id = RegisterClipboardFormat("Jw_win");
+            if(id != 0) SetClipboardData(id, h);
+            CloseClipboard();
+        }
+
+
+        [DllImport("user32.dll")]
+        public static extern bool OpenClipboard(IntPtr hWndNewOwner);
+        [DllImport("user32.dll")]
+        public static extern bool CloseClipboard();
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetClipboardData(int uFormat, IntPtr hMem);
+        [DllImport("user32.dll")]
+        public static extern bool EmptyClipboard();
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern int RegisterClipboardFormat(string lpszFormat);
     }
 }

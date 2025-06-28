@@ -64,6 +64,9 @@ namespace JwwHelper {
 		/// </summary>
 		/// <param name="path"></param>
 		void Read(String^ path, CompletedCallback^ completed);
+
+		void Read(array<byte>^ buffer, CompletedCallback^ completed);
+
 		/// <summary>
 		/// ブロック図形数。
 		/// </summary>
